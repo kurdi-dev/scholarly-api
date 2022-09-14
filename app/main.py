@@ -5,6 +5,8 @@ from scholarly import ProxyGenerator
 from fastapi import Response
 from typing import Union
 import os
+import json
+import copy
 
 from app.core.config import settings
 
@@ -97,9 +99,11 @@ def get_citations(doi: Union[str, None] = None, title: Union[str, None] = None):
     try:
         print("checking paper with doi: ", query)
         search_query = scholarly.search_pubs(query)
-        paper_info = next(search_query)
+        first_result = next(search_query)
+        paper_info =  copy.deepcopy(first_result)
         print("paper search result retrived from Google")
-        citations_data = scholarly.citedby(paper_info)
+        print(json.dumps(paper_info,sort_keys=True, indent=4))
+        citations_data = scholarly.citedby(first_result)
         print("citations data retrived from Google")
         citations = []
         for citation in citations_data:
