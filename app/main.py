@@ -42,7 +42,7 @@ def set_free_proxies():
 def set_scrapperapi_proxies(_api_key=False):
     try:
         pg = ProxyGenerator()
-        scraper_api_key = os.getenv("SCRAPER_API_KEY")
+        scraper_api_key = os.getenv("SCHOLARLY_SCRAPER_API_KEY")
 
         if (_api_key):
             scraper_api_key = _api_key
@@ -64,6 +64,14 @@ app = get_application()
 # set_free_proxies()
 set_scrapperapi_proxies()
 
+@app.get("/")
+def home():
+    return {"message":"Scholarly-Api, check /docs endpoint!"}
+
+
+@app.get("/status")
+def check_status():
+    return {"message":"OK"}
 
 @app.post("/use-freeproxies")
 async def use_free_proxies():
