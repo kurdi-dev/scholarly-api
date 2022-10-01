@@ -1,4 +1,4 @@
-version: "3.8"
+version: '3.8'
 
 services:
   app:
@@ -6,6 +6,4 @@ services:
     env_file:
       - .env
     ports:
-      - "8000:8000"
-
-
+      - '8000:80'
