@@ -1,10 +1,8 @@
-from fastapi import FastAPI, status, HTTPException
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from scholarly import scholarly
 from scholarly import ProxyGenerator
-from fastapi import Response
 from typing import Union
-import os
 import json
 import copy
 
@@ -15,8 +13,7 @@ def get_application():
     _app = FastAPI(title=settings.PROJECT_NAME)
     _app.add_middleware(
         CORSMiddleware,
-        allow_origins=[str(origin)
-                       for origin in settings.BACKEND_CORS_ORIGINS],
+        allow_origins=[str(origin) for origin in settings.BACKEND_CORS_ORIGINS],
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
@@ -42,7 +39,7 @@ def set_free_proxies():
 def set_scrapperapi_proxies(_api_key=False):
     try:
         pg = ProxyGenerator()
-        scraper_api_key = os.getenv("SCHOLARLY_SCRAPER_API_KEY")
+        scraper_api_key = settings.SCRAPER_API_KEY
 
         if (_api_key):
             scraper_api_key = _api_key

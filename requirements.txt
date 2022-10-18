@@ -1,5 +1,4 @@
-uvicorn[standard]==0.15.0
-gunicorn==20.1.0
-fastapi==0.68.1
+fastapi==0.68.0
+uvicorn==0.12.2
 scholarly==1.7.2
 free-proxy==1.0.6

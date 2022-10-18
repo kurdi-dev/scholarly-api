@@ -1,4 +1,3 @@
-
 from typing import List, Union
 
 from pydantic import AnyHttpUrl, BaseSettings, validator
@@ -6,8 +5,9 @@ from pydantic import AnyHttpUrl, BaseSettings, validator
 
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = 'scholarly-api'
-    BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = ["http://localhost:80", "https://localhost:80", "http://localhost:8000", "https://localhost:8000","http://localhost:3000", "https://localhost:3000", "http://localhost", "https://localhost"]
+    PROJECT_NAME: str
+    SCRAPER_API_KEY: str
+    BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = []
 
     @validator("BACKEND_CORS_ORIGINS", pre=True)
     def assemble_cors_origins(cls, v: Union[str, List[str]]) -> Union[List[str], str]:
@@ -17,16 +17,11 @@ class Settings(BaseSettings):
             return v
         raise ValueError(v)
 
+    
+
     class Config:
-        env_prefix = 'SCHOLARLY_'
-        fields = {
-            'PROJECT_NAME': {
-                'env': 'PROJECT_NAME',
-            },
-            'BACKEND_CORS_ORIGINS': {
-                'env': 'BACKEND_CORS_ORIGINS'
-            }
-        }
+        case_sensitive = True
+        env_file = ".env"
 
 
 settings = Settings()
