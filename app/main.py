@@ -5,15 +5,13 @@ from scholarly import ProxyGenerator
 from typing import Union
 import json
 import copy
-
-from app.core.config import settings
-
+import os
 
 def get_application():
-    _app = FastAPI(title=settings.PROJECT_NAME)
+    _app = FastAPI(title="scholarly-api")
     _app.add_middleware(
         CORSMiddleware,
-        allow_origins=[str(origin) for origin in settings.BACKEND_CORS_ORIGINS],
+        allow_origins=[str(origin) for origin in os.getenv("BACKEND_CORS_ORIGINS",[""])],
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
@@ -39,7 +37,7 @@ def set_free_proxies():
 def set_scrapperapi_proxies(_api_key=False):
     try:
         pg = ProxyGenerator()
-        scraper_api_key = settings.SCRAPER_API_KEY
+        scraper_api_key = os.getenv("SCRAPER_API_KEY")
 
         if (_api_key):
             scraper_api_key = _api_key

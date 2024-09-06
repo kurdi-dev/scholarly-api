@@ -1,4 +1,4 @@
-fastapi==0.68.0
-uvicorn==0.12.2
-scholarly==1.7.2
-free-proxy==1.0.6
+fastapi[standard]>=0.114.0
+pydantic>=2.7.0,<3.0.0
+scholarly==1.7.11
+free-proxy==1.1.1
