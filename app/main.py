@@ -7,16 +7,19 @@ import json
 import copy
 import os
 
+origins = os.environ.get("BACKEND_CORS_ORIGINS", ["*"])
+print("CORS Origins:")
+print(origins)
+
 def get_application():
     _app = FastAPI(title="scholarly-api")
     _app.add_middleware(
         CORSMiddleware,
-        allow_origins=[str(origin) for origin in os.getenv("BACKEND_CORS_ORIGINS",[""])],
+        allow_origins=origins,
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
     )
-
     return _app
 
 
@@ -37,7 +40,7 @@ def set_free_proxies():
 def set_scrapperapi_proxies(_api_key=False):
     try:
         pg = ProxyGenerator()
-        scraper_api_key = os.getenv("SCRAPER_API_KEY")
+        scraper_api_key = os.environ.get("SCRAPER_API_KEY")
 
         if (_api_key):
             scraper_api_key = _api_key
