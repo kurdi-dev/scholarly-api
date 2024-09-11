@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from lib.scholarly import scholarly
-from lib.scholarly import ProxyGenerator
+from app.lib.scholarly import scholarly
+from app.lib.scholarly import ProxyGenerator
 from typing import Union
 import json
 import copy
