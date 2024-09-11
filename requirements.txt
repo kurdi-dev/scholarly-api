@@ -1,4 +1,13 @@
 fastapi[standard]>=0.114.0
 pydantic>=2.7.0,<3.0.0
-scholarly==1.7.11
-free-proxy==1.1.1
+free-proxy
+arrow
+beautifulsoup4
+bibtexparser
+deprecated
+fake_useragent
+httpx
+python-dotenv
+requests[socks]
+selenium
+stem

@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from scholarly import scholarly
-from scholarly import ProxyGenerator
+from lib.scholarly import scholarly
+from lib.scholarly import ProxyGenerator
 from typing import Union
 import json
 import copy
@@ -96,21 +96,24 @@ def get_citations(doi: Union[str, None] = None, title: Union[str, None] = None):
     query = None
     if (doi):
         query = doi
+        print("checking paper with doi: ", query)
     elif (title):
         query = title
+        print("checking paper with title: ", query)
     else:
         raise HTTPException(
             status_code=400, detail="Paper DOI or title is required!")
 
     try:
-        print("checking paper with doi: ", query)
+        print("checking paper information from Google Scholar")
         search_query = scholarly.search_pubs(query)
         first_result = next(search_query)
         paper_info =  copy.deepcopy(first_result)
-        print("paper search result retrived from Google")
+        print("paper search result retrived from Google Scholar")
         print(json.dumps(paper_info,sort_keys=True, indent=4))
+        print("Getting citations data from Google Scholar")
         citations_data = scholarly.citedby(first_result)
-        print("citations data retrived from Google")
+        print("citations data retrived from Google Scholar")
         citations = []
         for citation in citations_data:
             citations.append(citation)
