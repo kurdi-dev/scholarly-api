@@ -1,5 +1,5 @@
-# ARG ARCH=linux/amd64
-ARG ARCH=linux/arm64/v8
+ARG ARCH=linux/amd64
+#ARG ARCH=linux/arm64/v8
 
 FROM --platform=${ARCH} python:3.9
 
